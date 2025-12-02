@@ -1,15 +1,56 @@
-name: Run Cypress Tests
+name: Multi-Site Cypress Tests
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 7 * * *' # Daily at 09:00 Israel time
 
 jobs:
-  cypress-run:
+  test-websites:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Don't stop if one site fails
+      matrix:
+        # Define the projects here
+        site: [oneofus, cypago] 
+
+    name: Test ${{ matrix.site }}
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Cypress Run
+      - name: Run Cypress for ${{ matrix.site }}
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
+          # Point to the specific config file based on the matrix name
+          config-file: cypress.config.${{ matrix.site }}.js
+      
+      # Save the result XML files so the reporter can read them later
+      - name: Upload Test Results
+        if: always() # Run even if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.site }}
+          path: results/*.xml
+
+  # This job runs after tests to create the detailed summary
+  report-results:
+    needs: test-websites
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Results
+        uses: actions/download-artifact@v4
+        with:
+          path: results
+          pattern: test-results-*
+          merge-multiple: true
+
+      - name: Publish Detailed Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: Website Health Report
+          path: results/*.xml
+          reporter: java-junit
