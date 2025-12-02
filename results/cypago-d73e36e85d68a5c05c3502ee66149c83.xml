@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.629" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2025-12-02T12:24:26" tests="1" file="cypress/e2e/cypago/mobile-home.cy.js" time="0.629" failures="1">
+    <testcase name="An uncaught error was detected outside of a test" time="0.000" classname="An uncaught error was detected outside of a test">
+      <failure message="The following error originated from your test code, not from Cypress.
+
+  &gt; adescribe is not defined
+
+When Cypress detects uncaught errors originating from your test code it will automatically fail the current test.
+
+Cypress could not associate this error to any specific test.
+
+We dynamically generated a new test to display this failure." type="ReferenceError"><![CDATA[ReferenceError: The following error originated from your test code, not from Cypress.
+
+  > adescribe is not defined
+
+When Cypress detects uncaught errors originating from your test code it will automatically fail the current test.
+
+Cypress could not associate this error to any specific test.
+
+We dynamically generated a new test to display this failure.
+    at eval (webpack://cypress/./cypress/e2e/cypago/mobile-home.cy.js:1:0)
+    at eval (https://cypago.com/__cypress/tests?p=cypress/e2e/cypago/mobile-home.cy.js:94:12)
+    at eval (<anonymous>)
+    at <unknown> (https://cypago.com/__cypress/runner/cypress_runner.js:113680:23)
+    at tryCatcher (https://cypago.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Object.gotValue (https://cypago.com/__cypress/runner/cypress_runner.js:6446:18)
+    at Object.gotAccum (https://cypago.com/__cypress/runner/cypress_runner.js:6435:25)
+    at Object.tryCatcher (https://cypago.com/__cypress/runner/cypress_runner.js:1777:23)
+    at Promise._settlePromiseFromHandler (https://cypago.com/__cypress/runner/cypress_runner.js:1489:31)
+    at Promise._settlePromise (https://cypago.com/__cypress/runner/cypress_runner.js:1546:18)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
